@@ -13,61 +13,61 @@ const NUM_FREELANCERS = 100;
 
 // === State ===
 const freelancers = Array.from({ length: NUM_FREELANCERS }, makeFreelancer);
-const averagePrice = getAveragePrice();
+const averageRate = getAverageRate();
 
-console.log(freelancers, averagePrice);
+console.log(freelancers, averageRate);
 
-//** @returns {Freelancer} a Freelancer from constants by index */
+// @returns {Freelancer} a Freelancer from constants by index
 function makeFreelancer(_, index) {
-  return {
-    name: NAMES[index % NAMES.length],
-    occupation: OCCUPATIONS[index % OCCUPATIONS.length],
-    rate: Math.floor(
-      Math.random() * (PRICE_RANGE.max - PRICE_RANGE.min + 1) + PRICE_RANGE.min
-    ),
-  };
+    return {
+        name: NAMES[index % NAMES.length],
+        occupation: OCCUPATIONS[index % OCCUPATIONS.length],
+        rate: Math.floor (
+            Math.random() * (PRICE_RANGE.max - PRICE_RANGE.min +1) + PRICE_RANGE.min
+        ),
+    };
 }
 
-/** returns {number} the average rate of all freelancers */
-function getAveragePrice() {
-  const total = freelancers.reduce((accum, currentFreelancer) => {
-    return accum + currentFreelancer.rate;
-  }, 0);
+// returns {number} the average rate of all Freelancers
+function getAverageRate() {
+    const total = freelancers.reduce((accum, currentFreelancer) => {
+        return accum + currentFreelancer.rate;
+    }, 0);
 
-  return total / freelancers.length;
+    return total / freelancers.length;
 }
 
-// ====== Components =====
-function AveragePrice() {
-  const $p = document.createElement("p");
-  $p.textContent = `Average Price: $${averagePrice.toFixed(2)}`;
-  return $p;
+// === Components ===
+function AverageRate() {
+    const $p = document.createElement("p");
+    $p.textContent = `Average Rate: $${averageRate.toFixed(2)}`;
+    return $p;
 }
 
-function FreelancerRow({ name, occupation, rate }) {
-  const $tr = document.createElement("tr");
-  $tr.innerHTML = `
-     <td>${name}</td>
-     <td>${occupation}</td>
-     <td>$${rate}</td>
-  `;
-  return $tr;
+function FreelancerRow({name, occupation, rate }) {
+    const $tr = document.createElement("tr");
+    $tr.innerHTML = `
+    <td>${name}</td>
+    <td>${occupation}</td>
+    <td>$${rate}</td>
+    `;
+    return $tr;
 }
 
 function FreelancerRows() {
-  const $tbody = document.createElement("tbody");
-  const $rows = freelancers.map(FreelancerRow);
-  $tbody.replaceChildren(...$rows);
-  return $tbody;
+    const $tbody = document.createElement ("tbody");
+    const $rows = freelancers.map(FreelancerRow);
+    $tbody.replaceChildren(...$rows);
+    return $tbody;
 }
 
 // === Render ===
 function render() {
-  const $app = document.querySelector("#app");
+    const $app = document.querySelector("#app");
 
-  $app.innerHTML = `
+    $app.innerHTML = `
    <h1>Freelancer Table</h1>
-   <AveragePrice></AveragePrice>
+   <AverageRate></AverageRate>
     <table>
       <thead>
         <tr>
@@ -80,8 +80,8 @@ function render() {
     </table>
   `;
 
-  $app.querySelector("AveragePrice").replaceWith(AveragePrice());
-  $app.querySelector("#FreelancerRows").replaceWith(FreelancerRows());
+    $app.querySelector("AverageRate").replaceWith(AverageRate());
+    $app.querySelector("#FreelancerRows").replaceWith(FreelancerRows());
 }
 
 render();
